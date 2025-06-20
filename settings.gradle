@@ -1,4 +1,4 @@
-// settings.gradle
+// File: settings.gradle
 
 pluginManagement {
     repositories {
@@ -12,10 +12,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        // Anda bisa menambahkan repositori lain di sini jika perlu, misal: jcenter() atau lainnya
     }
 }
 
 rootProject.name = "Termux Accessibility Template"
-//include ':app'
- 
