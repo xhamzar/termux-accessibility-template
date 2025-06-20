@@ -17,5 +17,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Termux Accessibility Template"
-include ':app'
+//include ':app'
  
