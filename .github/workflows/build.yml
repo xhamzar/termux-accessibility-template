@@ -1,10 +1,10 @@
-name: Build Debug APK
+name: Android CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -12,13 +12,24 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
+        java-version: '17'
         distribution: 'temurin'
-        java-version: 17
+
+    # LANGKAH TAMBAHAN: Instal Gradle dan Buat Ulang Wrapper
+    # ----------------------------------------------------
+    - name: Set up Gradle and regenerate wrapper
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        # Tentukan versi Gradle yang ingin Anda gunakan untuk membuat wrapper
+        gradle-version: '8.5' # Contoh, sesuaikan dengan versi yang Anda inginkan
+    - name: Regenerate Gradle Wrapper
+      run: gradle wrapper --gradle-version 8.5 # Perintah ini akan menimpa gradlew yang rusak
+    # ----------------------------------------------------
 
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
