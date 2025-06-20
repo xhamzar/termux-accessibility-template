@@ -1,24 +1,89 @@
-apply plugin: 'com.android.application'
+// File: build.gradle (di root proyek Anda)
+
+// Blok 'plugins' adalah cara modern untuk menerapkan plugin.
+// Ini menggantikan cara lama 'apply plugin: ...'
+plugins {
+    // Plugin utama untuk membangun aplikasi Android
+    id 'com.android.application'
+    // Plugin untuk dukungan bahasa Kotlin (sangat umum digunakan)
+    id 'org.jetbrains.kotlin.android'
+}
 
 android {
-    compileSdkVersion 33
+    // 'namespace' wajib diisi di plugin Android modern.
+    // HARUS SAMA dengan nama paket yang Anda tentukan.
+    namespace 'com.example.accessibilitybridge'
+
+    // Versi Android SDK yang digunakan untuk meng-compile aplikasi Anda.
+    // Sebaiknya gunakan versi terbaru yang stabil.
+    compileSdk 34
+
     defaultConfig {
-        applicationId "com.example.accessibilitybridge"
-        minSdkVersion 21
-        targetSdkVersion 33
+        // ID unik aplikasi Anda di Play Store.
+        applicationId 'com.example.accessibilitybridge'
+
+        // Versi Android minimum yang bisa menjalankan aplikasi Anda.
+        minSdk 24
+
+        // Versi Android target yang sudah Anda uji.
+        // Sebaiknya sama dengan compileSdk.
+        targetSdk 34
+
+        // Kode versi internal, naikkan setiap kali Anda merilis update.
         versionCode 1
-        versionName "1.0"
+        // Nama versi yang dilihat pengguna, e.g., "1.0", "1.1-beta".
+        versionName '1.0'
+
+        // Runner standar untuk menjalankan instrumentation test.
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
-        debug {
-            debuggable true
-        }
         release {
-            minifyEnabled false
+            // Mengaktifkan R8/ProGuard untuk mengecilkan ukuran APK dan mengobfuskasi kode.
+            // Sangat penting untuk build rilis.
+            minifyEnabled true
+            // File aturan ProGuard default dari Android, dan file aturan kustom Anda.
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            // Konfigurasi khusus untuk build debug (jika ada)
+            // Misalnya: applicationIdSuffix ".debug"
+        }
+    }
+
+    // Opsi kompilasi untuk memastikan kompatibilitas versi Java.
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    // Opsi khusus untuk Kotlin (jika Anda menggunakannya).
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    
+    // Fitur build lain bisa ditambahkan di sini, e.g., viewBinding
+    buildFeatures {
+        viewBinding true
     }
 }
 
+// Blok 'dependencies' adalah tempat Anda menambahkan semua library eksternal.
 dependencies {
+
+    // Library Inti & UI dari AndroidX
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // Library untuk Unit Testing (berjalan di JVM)
+    testImplementation 'junit:junit:4.13.2'
+
+    // Library untuk Instrumentation Testing (berjalan di perangkat/emulator Android)
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+
+    // (Tambahkan library spesifik lain yang Anda butuhkan di sini)
 }
