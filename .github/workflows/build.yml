@@ -20,17 +20,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # LANGKAH TAMBAHAN: Instal Gradle dan Buat Ulang Wrapper
-    # ----------------------------------------------------
-    - name: Set up Gradle and regenerate wrapper
-      uses: gradle/actions/setup-gradle@v3
-      with:
-        # Tentukan versi Gradle yang ingin Anda gunakan untuk membuat wrapper
-        gradle-version: '8.5' # Contoh, sesuaikan dengan versi yang Anda inginkan
-    - name: Regenerate Gradle Wrapper
-      run: gradle wrapper --gradle-version 8.5 # Perintah ini akan menimpa gradlew yang rusak
-    # ----------------------------------------------------
-
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
 
