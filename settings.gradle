@@ -29,5 +29,4 @@ dependencyResolutionManagement {
     }
 }
 
-include(":app")
-include(":src")
+rootProject.name = "termux-accessibility-bridge"
